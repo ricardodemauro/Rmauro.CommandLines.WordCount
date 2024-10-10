@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "watch Rmauro.CommandLines.WordCount",
+			"file": "/home/radmin/github/Rmauro.CommandLines.WordCount/src/Rmauro.CommandLines.WordCount/Rmauro.CommandLines.WordCount.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch Rmauro.CommandLines.WordCount"
+		},
+
+		{
+			"type": "dotnet",
+			"task": "build /home/radmin/github/Rmauro.CommandLines.WordCount/src/Rmauro.CommandLines.WordCount/Rmauro.CommandLines.WordCount.csproj",
+			"file": "/home/radmin/github/Rmauro.CommandLines.WordCount/src/Rmauro.CommandLines.WordCount/Rmauro.CommandLines.WordCount.csproj",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "dotnet: build /home/radmin/github/Rmauro.CommandLines.WordCount/src/Rmauro.CommandLines.WordCount/Rmauro.CommandLines.WordCount.csproj"
+		}
+	]
+}
