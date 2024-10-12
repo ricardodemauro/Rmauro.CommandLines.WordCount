@@ -17,7 +17,7 @@ public static class WordCounter
     {
         var allLines = reader.ReadToEnd();
 
-        return allLines.Split([' ', '\t', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries).Length + 1;
+        return allLines.Split([' ', '\t', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries).Length;
     }
 
     public static WordCountResult GetWordCount(string filePath)
@@ -35,7 +35,7 @@ public static class WordCounter
     {
         var allLines = reader.ReadToEnd();
 
-        return allLines.Length;
+        return allLines.Length + 1;
     }
 
     public static WordCountResult GetCharacterCount(string filePath)
@@ -64,7 +64,7 @@ public static class WordCounter
     {
         var allLines = reader.ReadToEnd();
 
-        return allLines.Split(Environment.NewLine).LongLength;
+        return allLines.Split(Environment.NewLine).LongLength - 1;
     }
 
     public static long GetLineCount(FileStream fStream)

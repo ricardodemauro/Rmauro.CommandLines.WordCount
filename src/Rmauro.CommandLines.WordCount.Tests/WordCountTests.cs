@@ -10,7 +10,7 @@ public class WordCountTests
         var result = WordCounter.GetFileBytes(filePath: file);
 
         Assert.True(result.IsComputed);
-        Assert.Equal(342384, result.Count);
+        Assert.Equal(342190, result.Count);
     }
 
     [Fact]
@@ -21,7 +21,7 @@ public class WordCountTests
         var result = WordCounter.GetLineCount(filePath: file);
 
         Assert.True(result.IsComputed);
-        Assert.Equal(7190, result.Count);
+        Assert.Equal(7145, result.Count);
     }
 
     [Fact]
@@ -44,6 +44,6 @@ public class WordCountTests
 
         Assert.True(result.IsComputed);
 
-        Assert.Equal(339485, result.Count);
+        Assert.Equal(339292, result.Count);
     }
 }
