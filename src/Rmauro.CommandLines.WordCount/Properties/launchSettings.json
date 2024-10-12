@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Rmauro.CommandLines.WordCount": {
+      "commandName": "Project",
+      "commandLineArgs": ".\\test.txt"
+    }
+  }
+}
