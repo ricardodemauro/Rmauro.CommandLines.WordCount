@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Rmauro.CommandLines.WordCount\Rmauro.CommandLines.WordCount.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="bigfile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

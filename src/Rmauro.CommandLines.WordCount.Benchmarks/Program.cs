@@ -1,27 +1,72 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Text;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Rmauro.CommandLines.WordCount;
 
-var summary = BenchmarkRunner.Run<LineCountBenchmarks>();
+var summary = BenchmarkRunner.Run<CharacterCountBenchmarks>();
 
 [SimpleJob]
 [MemoryDiagnoser]
-public class LineCountBenchmarks
+public class CharacterCountBenchmarks
 {
-    static readonly string file = Path.Combine(Directory.GetCurrentDirectory(), "test");
-
-    [Benchmark(Baseline = true)]
-    public void GetLineCount()
+    static readonly FileStreamOptions _options = new()
     {
-        _ = WordCounter.GetLineCount(filePath: file);
+        Access = FileAccess.Read,
+        BufferSize = 1024,
+        Mode = FileMode.Open,
+        Options = FileOptions.SequentialScan,
+        Share = FileShare.Read
+    };
+
+    byte[] memory;
+
+    [GlobalSetup]
+    public void GlobalSetup()
+    {
+        using var fStream = new FileStream(big_file, _options);
+
+        using var memStream = new MemoryStream();
+
+        fStream.CopyTo(memStream);
+
+        memory = memStream.ToArray();
+
+        fStream.Close();
     }
 
-    static readonly string big_file = Path.Combine(Directory.GetCurrentDirectory(), "../../assets/bigfile.txt");
+    static readonly string big_file = Path.Combine(Directory.GetCurrentDirectory(), "bigfile.txt");
+
+    [Benchmark(Baseline = true)]
+    public void GetCharacterCount()
+    {
+        using var memStream = new MemoryStream(memory);
+        memStream.Seek(0, SeekOrigin.Begin);
+
+        using var reader = new StreamReader(memStream, Encoding.UTF8);
+
+        _ = WordCounter.CountCharacter(reader);
+    }
 
     [Benchmark()]
-    public void GetLineCountBigFile()
+    public void GetCustomCharacterCount()
     {
-        _ = WordCounter.GetLineCount(filePath: big_file);
+        using var memStream = new MemoryStream(memory);
+        memStream.Seek(0, SeekOrigin.Begin);
+
+        using var reader = new WordReader(memStream, Encoding.UTF8);
+
+        _ = WordCounter.CountCharacter(reader);
+    }
+
+    [Benchmark()]
+    public void GetUnsafeCustomCharacterCount()
+    {
+        using var memStream = new MemoryStream(memory);
+        memStream.Seek(0, SeekOrigin.Begin);
+
+        using var reader = new WordReader(memStream, Encoding.UTF8);
+
+        _ = WordCounter.UnsafeCountCharacter(reader);
     }
 }

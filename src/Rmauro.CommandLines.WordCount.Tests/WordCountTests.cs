@@ -49,6 +49,21 @@ public class WordCountTests
         string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
 
         var result = WordCounter.GetCharacterCount(filePath: file);
+        //var result = WordCounter.GetUnsafeCharacterCount(filePath: file);
+
+        Assert.True(result.IsComputed);
+
+        Assert.Equal(charactersCount, result.Count);
+    }
+
+    [Theory]
+    [InlineData("bigfile.txt", 10100000)]
+    [InlineData("test.txt", 339292)]
+    public void TestUnsafeCharactersCount_Theory(string fileName, int charactersCount)
+    {
+        string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
+
+        var result = WordCounter.GetUnsafeCharacterCount(filePath: file);
 
         Assert.True(result.IsComputed);
 

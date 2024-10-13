@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
+
+[assembly: InternalsVisibleTo("Rmauro.CommandLines.WordCount.Benchmarks")]
+[assembly: InternalsVisibleTo("Rmauro.CommandLines.WordCount.Tests")]
 
 namespace Rmauro.CommandLines.WordCount;
 
@@ -40,16 +44,22 @@ public static class WordCounter
         return WordCountResult.Computed(CountWords(reader), filePath.GetFileName());
     }
 
-    static long CountCharacter(StreamReader reader)
+    internal static long CountCharacter(StreamReader reader)
     {
         var allLines = reader.ReadToEnd();
 
         return allLines.Length;
     }
 
-    static long CountCharacter(WordReader reader)
+    internal static long CountCharacter(WordReader reader)
     {
         var characterCount = reader.CountCharacters();
+        return characterCount;
+    }
+
+    internal static long UnsafeCountCharacter(WordReader reader)
+    {
+        var characterCount = reader.UnsafeCountCharacters();
 
         return characterCount;
     }
@@ -63,6 +73,17 @@ public static class WordCounter
         var reader = new WordReader(fStream, Encoding.UTF8);
 
         return WordCountResult.Computed(CountCharacter(reader), filePath.GetFileName());
+    }
+
+    public static WordCountResult GetUnsafeCharacterCount(string filePath)
+    {
+        if (!File.Exists(filePath))
+            return WordCountResult.NotFound();
+
+        using var fStream = new FileStream(filePath, _options);
+        var reader = new WordReader(fStream, Encoding.UTF8);
+
+        return WordCountResult.Computed(UnsafeCountCharacter(reader), filePath.GetFileName());
     }
 
     public static long GetFileBytes(FileInfo fileInfo) => fileInfo.Length;
