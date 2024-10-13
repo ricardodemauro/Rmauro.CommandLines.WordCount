@@ -25,11 +25,18 @@ Benchmark Test using StreamReader vs WordReader Implementation.
 
 1. Test for Character Count
 
-| Method                            | Mean        | Error     | StdDev    | Ratio | RatioSD | Gen0      | Gen1      | Gen2     | Allocated  | Alloc Ratio |
-|---------------------------------- |------------:|----------:|----------:|------:|--------:|----------:|----------:|---------:|-----------:|------------:|
-| GetStreamReaderCountCharacter     | 14,482.7 us | 272.88 us | 255.26 us |  1.00 |    0.02 | 4156.2500 | 2625.0000 | 968.7500 | 40510780 B |       1.000 |
-| GetWordReaderCountCharacter       |    958.2 us |  15.10 us |  12.61 us |  0.07 |    0.00 |         - |         - |        - |      161 B |       0.000 |
-| GetWordReaderUnsafeCountCharacter |    952.3 us |  18.04 us |  17.72 us |  0.07 |    0.00 |         - |         - |        - |      161 B |       0.000 |
+BenchmarkDotNet v0.14.0, Ubuntu 20.04.6 LTS (Focal Fossa) WSL
+Intel Core i7-7500U CPU 2.70GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cores
+.NET SDK 8.0.402
+  [Host]     : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+
+
+| Method                            | Mean      | Error     | StdDev    | Median    | Ratio | RatioSD | Gen0      | Gen1      | Gen2     | Allocated  | Alloc Ratio |
+|---------------------------------- |----------:|----------:|----------:|----------:|------:|--------:|----------:|----------:|---------:|-----------:|------------:|
+| GetStreamReaderCountCharacter     | 16.441 ms | 0.3414 ms | 1.0066 ms | 16.622 ms |  1.00 |    0.09 | 4156.2500 | 2625.0000 | 937.5000 | 40510697 B |       1.000 |
+| GetWordReaderCountCharacter       |  1.020 ms | 0.0324 ms | 0.0886 ms |  1.001 ms |  0.06 |    0.01 |         - |         - |        - |       97 B |       0.000 |
+| GetWordReaderUnsafeCountCharacter |  1.096 ms | 0.0609 ms | 0.1709 ms |  1.040 ms |  0.07 |    0.01 |         - |         - |        - |       97 B |       0.000 |
 
 ## Useful Tools
 

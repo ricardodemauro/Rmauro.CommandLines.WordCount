@@ -19,31 +19,30 @@ public class CharacterCountBenchmarks
         Share = FileShare.Read
     };
 
-    byte[] memory;
+    static readonly string big_file = Path.Combine(Directory.GetCurrentDirectory(), "bigfile.txt");
+
+    MemoryStream? sourceStream;
 
     [GlobalSetup]
     public void GlobalSetup()
     {
         using var fStream = new FileStream(big_file, _options);
 
-        using var memStream = new MemoryStream();
+        sourceStream = new MemoryStream();
 
-        fStream.CopyTo(memStream);
-
-        memory = memStream.ToArray();
+        fStream.CopyTo(sourceStream);
 
         fStream.Close();
     }
 
-    static readonly string big_file = Path.Combine(Directory.GetCurrentDirectory(), "bigfile.txt");
+    [GlobalCleanup]
+    public void GlobalCleanup() => sourceStream?.Dispose();
 
     [Benchmark(Baseline = true)]
     public void GetStreamReaderCountCharacter()
     {
-        using var memStream = new MemoryStream(memory);
-        memStream.Seek(0, SeekOrigin.Begin);
-
-        using var reader = new StreamReader(memStream, Encoding.UTF8);
+        sourceStream!.Seek(0, SeekOrigin.Begin);
+        var reader = new StreamReader(sourceStream!, Encoding.UTF8);
 
         _ = WordCounter.CountCharacter(reader);
     }
@@ -51,10 +50,8 @@ public class CharacterCountBenchmarks
     [Benchmark()]
     public void GetWordReaderCountCharacter()
     {
-        using var memStream = new MemoryStream(memory);
-        memStream.Seek(0, SeekOrigin.Begin);
-
-        using var reader = new WordReader(memStream, Encoding.UTF8);
+        sourceStream!.Seek(0, SeekOrigin.Begin);
+        var reader = new WordReader(sourceStream!, Encoding.UTF8);
 
         _ = WordCounter.CountCharacter(reader);
     }
@@ -62,10 +59,8 @@ public class CharacterCountBenchmarks
     [Benchmark()]
     public void GetWordReaderUnsafeCountCharacter()
     {
-        using var memStream = new MemoryStream(memory);
-        memStream.Seek(0, SeekOrigin.Begin);
-
-        using var reader = new WordReader(memStream, Encoding.UTF8);
+        sourceStream!.Seek(0, SeekOrigin.Begin);
+        var reader = new WordReader(sourceStream!, Encoding.UTF8);
 
         _ = WordCounter.UnsafeCountCharacter(reader);
     }
