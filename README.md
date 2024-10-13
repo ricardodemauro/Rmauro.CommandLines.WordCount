@@ -6,12 +6,12 @@ A version of the Unix command line tool, "wc", written in .NET.
 
 ## Implemented Options
 
-[x] -c : number of bytes
-[x] -l : number of lines
-[x] -w : number of words
-[x] -m : number of characters
-[ ] Default options - equivalent to -c -l -w
-[ ] Read from Standard input
+- [x] -c : number of bytes
+- [x] -l : number of lines
+- [x] -w : number of words
+- [x] -m : number of characters
+- [ ] Default options - equivalent to -c -l -w
+- [ ] Read from Standard input
 
 ---
 
