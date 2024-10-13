@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using Rmauro.CommandLines.WordCount;
 using static System.Console;
 

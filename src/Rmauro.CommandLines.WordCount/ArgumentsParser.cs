@@ -1,5 +1,3 @@
-using System;
-
 namespace Rmauro.CommandLines.WordCount;
 
 public record class CWArgument(
