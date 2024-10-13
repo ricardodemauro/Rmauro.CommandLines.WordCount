@@ -2,48 +2,56 @@ namespace Rmauro.CommandLines.WordCount.Tests;
 
 public class WordCountTests
 {
-    [Fact]
-    public void TestBytesCount()
+    [Theory]
+    [InlineData("bigfile.txt", 1010000000)]
+    [InlineData("test.txt", 342190)]
+    public void TestBytesCount_Theory(string fileName, int count)
     {
-        string file = Path.Combine(Directory.GetCurrentDirectory(), "test.txt");
+        string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
 
         var result = WordCounter.GetFileBytes(filePath: file);
 
         Assert.True(result.IsComputed);
-        Assert.Equal(342190, result.Count);
+        Assert.Equal(count, result.Count);
     }
 
-    [Fact]
-    public void TestLineCount()
+    [Theory]
+    [InlineData("bigfile.txt", 10000000)]
+    [InlineData("test.txt", 7145)]
+    public void TestLineCount_Theory(string fileName, int count)
     {
-        string file = Path.Combine(Directory.GetCurrentDirectory(), "test.txt");
+        string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
 
         var result = WordCounter.GetLineCount(filePath: file);
 
         Assert.True(result.IsComputed);
-        Assert.Equal(7145, result.Count);
+        Assert.Equal(count, result.Count);
     }
 
-    [Fact]
-    public void TestWordCount()
+    [Theory]
+    [InlineData("bigfile.txt", 25305759)]
+    [InlineData("test.txt", 58164)]
+    public void TestWordCount_Theory(string fileName, int count)
     {
-        string file = Path.Combine(Directory.GetCurrentDirectory(), "test.txt");
+        string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
 
         var result = WordCounter.GetWordCount(filePath: file);
 
         Assert.True(result.IsComputed);
-        Assert.Equal(58164, result.Count);
+        Assert.Equal(count, result.Count);
     }
 
-    [Fact]
-    public void TestCharactersCount()
+    [Theory]
+    [InlineData("bigfile.txt", 1010000000)]
+    [InlineData("test.txt", 339292)]
+    public void TestCharactersCount_Theory(string fileName, int charactersCount)
     {
-        string file = Path.Combine(Directory.GetCurrentDirectory(), "test.txt");
+        string file = Path.Combine(Directory.GetCurrentDirectory(), "../../../../../assets/", fileName);
 
         var result = WordCounter.GetCharacterCount(filePath: file);
 
         Assert.True(result.IsComputed);
 
-        Assert.Equal(339292, result.Count);
+        Assert.Equal(charactersCount, result.Count);
     }
 }

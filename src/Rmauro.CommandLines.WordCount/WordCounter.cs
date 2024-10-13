@@ -35,7 +35,7 @@ public static class WordCounter
     {
         var allLines = reader.ReadToEnd();
 
-        return allLines.Length + 1;
+        return allLines.Length;
     }
 
     public static WordCountResult GetCharacterCount(string filePath)
