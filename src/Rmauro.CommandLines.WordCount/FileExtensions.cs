@@ -25,4 +25,11 @@ public static class FileExtensions
     {
         return new FileInfo(path).Name;
     }
+
+    public static string GetFullPath(this string path)
+    {
+        if(Path.IsPathRooted(path))return path;
+        
+        return Path.Combine(Directory.GetCurrentDirectory(), path);
+    }
 }
