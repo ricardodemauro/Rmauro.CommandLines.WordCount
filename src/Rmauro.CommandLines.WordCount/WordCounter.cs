@@ -33,13 +33,27 @@ public static class WordCounter
         return allLines.Split([' ', '\t', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries).Length;
     }
 
+    static long CountWords(WordReader reader)
+    {
+        long wordCount = reader.CountWords();
+
+        return wordCount;
+    }
+
     public static WordCountResult GetWordCount(string filePath)
     {
+        // if (!File.Exists(filePath))
+        //     return WordCountResult.NotFound();
+
+        // using var fStream = File.OpenRead(filePath);
+        // var reader = new StreamReader(fStream, Encoding.UTF8);
+
+        // return WordCountResult.Computed(CountWords(reader), filePath.GetFileName());
         if (!File.Exists(filePath))
             return WordCountResult.NotFound();
 
-        using var fStream = File.OpenRead(filePath);
-        var reader = new StreamReader(fStream, Encoding.UTF8);
+        using var fStream = new FileStream(filePath, _options);
+        var reader = new WordReader(fStream, Encoding.UTF8);
 
         return WordCountResult.Computed(CountWords(reader), filePath.GetFileName());
     }
