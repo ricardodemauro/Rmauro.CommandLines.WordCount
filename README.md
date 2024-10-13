@@ -19,15 +19,17 @@ This repository takes inspiration from John Crickett's [Coding Challenge's](http
 
 ## Benchmarks
 
-Test using StreamReader vs Custom Implementation
+Benchmark Test using StreamReader vs WordReader Implementation. 
+
+> Remember that StreamReader it's a implementation for all use cases, while WordReader was optmized for this scenarion only.
 
 1. Test for Character Count
 
-| Method                        | Mean        | Error     | StdDev      | Ratio | RatioSD | Gen0      | Gen1      | Gen2      | Allocated   | Alloc Ratio |
-|------------------------------ |------------:|----------:|------------:|------:|--------:|----------:|----------:|----------:|------------:|------------:|
-| GetCharacterCount             | 16,044.2 us | 426.22 us | 1,202.17 us |  1.01 |    0.11 | 4218.7500 | 2687.5000 | 1000.0000 | 39561.08 KB |       1.000 |
-| GetCustomCharacterCount       |    995.6 us |  19.32 us |    18.07 us |  0.06 |    0.00 |         - |         - |         - |     2.19 KB |       0.000 |
-| GetUnsafeCustomCharacterCount |    937.7 us |  11.74 us |     9.80 us |  0.06 |    0.00 |    0.9766 |         - |         - |     2.19 KB |       0.000 |
+| Method                            | Mean        | Error     | StdDev    | Ratio | RatioSD | Gen0      | Gen1      | Gen2     | Allocated  | Alloc Ratio |
+|---------------------------------- |------------:|----------:|----------:|------:|--------:|----------:|----------:|---------:|-----------:|------------:|
+| GetStreamReaderCountCharacter     | 14,482.7 us | 272.88 us | 255.26 us |  1.00 |    0.02 | 4156.2500 | 2625.0000 | 968.7500 | 40510780 B |       1.000 |
+| GetWordReaderCountCharacter       |    958.2 us |  15.10 us |  12.61 us |  0.07 |    0.00 |         - |         - |        - |      161 B |       0.000 |
+| GetWordReaderUnsafeCountCharacter |    952.3 us |  18.04 us |  17.72 us |  0.07 |    0.00 |         - |         - |        - |      161 B |       0.000 |
 
 ## Useful Tools
 

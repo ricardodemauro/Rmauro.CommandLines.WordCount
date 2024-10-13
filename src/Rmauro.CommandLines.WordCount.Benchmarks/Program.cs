@@ -38,7 +38,7 @@ public class CharacterCountBenchmarks
     static readonly string big_file = Path.Combine(Directory.GetCurrentDirectory(), "bigfile.txt");
 
     [Benchmark(Baseline = true)]
-    public void GetCharacterCount()
+    public void GetStreamReaderCountCharacter()
     {
         using var memStream = new MemoryStream(memory);
         memStream.Seek(0, SeekOrigin.Begin);
@@ -49,7 +49,7 @@ public class CharacterCountBenchmarks
     }
 
     [Benchmark()]
-    public void GetCustomCharacterCount()
+    public void GetWordReaderCountCharacter()
     {
         using var memStream = new MemoryStream(memory);
         memStream.Seek(0, SeekOrigin.Begin);
@@ -60,7 +60,7 @@ public class CharacterCountBenchmarks
     }
 
     [Benchmark()]
-    public void GetUnsafeCustomCharacterCount()
+    public void GetWordReaderUnsafeCountCharacter()
     {
         using var memStream = new MemoryStream(memory);
         memStream.Seek(0, SeekOrigin.Begin);
