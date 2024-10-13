@@ -3,7 +3,7 @@ namespace Rmauro.CommandLines.WordCount.Tests;
 public class WordCountTests
 {
     [Theory]
-    [InlineData("bigfile.txt", 1010000000)]
+    [InlineData("bigfile.txt", 10100000)]
     [InlineData("test.txt", 342190)]
     public void TestBytesCount_Theory(string fileName, int count)
     {
@@ -16,7 +16,7 @@ public class WordCountTests
     }
 
     [Theory]
-    [InlineData("bigfile.txt", 10000000)]
+    [InlineData("bigfile.txt", 100000)]
     [InlineData("test.txt", 7145)]
     public void TestLineCount_Theory(string fileName, int count)
     {
@@ -29,7 +29,7 @@ public class WordCountTests
     }
 
     [Theory]
-    [InlineData("bigfile.txt", 25305759)]
+    [InlineData("bigfile.txt", 253049)]
     [InlineData("test.txt", 58164)]
     public void TestWordCount_Theory(string fileName, int count)
     {
@@ -42,7 +42,7 @@ public class WordCountTests
     }
 
     [Theory]
-    [InlineData("bigfile.txt", 1010000000)]
+    [InlineData("bigfile.txt", 10100000)]
     [InlineData("test.txt", 339292)]
     public void TestCharactersCount_Theory(string fileName, int charactersCount)
     {

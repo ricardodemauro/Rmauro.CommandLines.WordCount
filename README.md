@@ -16,3 +16,14 @@ A version of the Unix command line tool, "wc", written in .NET.
 ---
 
 This repository takes inspiration from John Crickett's [Coding Challenge's](https://codingchallenges.fyi/) website, following the the [Build Your Own wc Tool](https://codingchallenges.fyi/challenges/challenge-wc) challenge. 
+
+
+## Tools
+
+To generate a random big file
+
+```bash
+tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 100000 > bigfile.txt
+```
+
+Found on: https://stackoverflow.com/a/139289/1652594

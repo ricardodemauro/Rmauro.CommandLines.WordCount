@@ -13,6 +13,15 @@ public record class WordCountResult(long Count, string FileName, bool IsComputed
 
 public static class WordCounter
 {
+    static readonly FileStreamOptions _options = new()
+    {
+        Access = FileAccess.Read,
+        BufferSize = 4096,
+        Mode = FileMode.Open,
+        Options = FileOptions.SequentialScan,
+        Share = FileShare.Read
+    };
+
     static long CountWords(StreamReader reader)
     {
         var allLines = reader.ReadToEnd();
@@ -38,13 +47,20 @@ public static class WordCounter
         return allLines.Length;
     }
 
+    static long CountCharacter(WordReader reader)
+    {
+        var characterCount = reader.CountCharacters();
+
+        return characterCount;
+    }
+
     public static WordCountResult GetCharacterCount(string filePath)
     {
         if (!File.Exists(filePath))
             return WordCountResult.NotFound();
 
-        using var fStream = File.OpenRead(filePath);
-        var reader = new StreamReader(fStream, Encoding.UTF8);
+        using var fStream = new FileStream(filePath, _options);
+        var reader = new WordReader(fStream, Encoding.UTF8);
 
         return WordCountResult.Computed(CountCharacter(reader), filePath.GetFileName());
     }
